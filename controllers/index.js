@@ -12,5 +12,8 @@ module.exports = {
     ]
 
     res.render('campgrounds', { campGrounds })
+  },
+  addCampground: (req, res) => {
+    res.render('addCampground')
   }
 }
