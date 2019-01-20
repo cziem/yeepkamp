@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000
 const routes = require('./routes/route')
 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.set('view engine', 'ejs')
 
 app.use('/', routes)
 
