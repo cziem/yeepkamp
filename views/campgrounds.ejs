@@ -1,14 +1,30 @@
 <% include partials/header %>
 
-<h1>Select a Campground</h1>
+<div class="container">
+  <header class="jumbotron">
+    <div class="container">
+      <h1>Select a Campground</h1>
+      <p class="lead">
+        Carefully hand-picked for you from top campsites all over the world
+      </p>
+      <p>
+        <a href="/campgrounds/new" class="btn btn-primary">Add new Campground</a>
+      </p>
+    </div>
+  </header>
 
-<a href="/campgrounds/new">Add new Campground</a>
-
-<% campGrounds.forEach(camp => { %>
-  <div>
-    <img src="<%= camp.imgScr %>">
-    <%= camp.name %>
+  <div class="row camp_wrapper" style="display: flex; flex-wrap: wrap;">
+    <% campGrounds.forEach(camp => { %>
+      <div class="col-md-3 col-sm-6">
+        <div class="thumbnail">
+          <img src="<%= camp.imgScr %>">
+          <div class="caption">
+            <%= camp.name %>
+          </div>
+        </div>
+      </div>
+    <% }) %>
   </div>
-<% }) %>
+</div>
 
 <% include partials/footer %>
