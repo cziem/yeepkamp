@@ -9,7 +9,7 @@ module.exports = {
   getCampground: (req, res) => {
     Campgrounds.find()
       .then((campGrounds) => {
-        res.render('campgrounds', { campGrounds })
+        res.render('index', { campGrounds })
       })
   },
 
@@ -20,15 +20,27 @@ module.exports = {
 
   // Add a new campground
   addCampground: (req, res) => {
-    const { addCampground, image } = req.body
+    const { name, image, desc } = req.body
 
     const campground = new Campgrounds({
-      name: addCampground,
-      image
+      name,
+      image,
+      desc
     })
 
     campground.save()
       .then(() => res.redirect('/campgrounds'))
       .catch(err => console.log(`an error occurred... ${err}`))
+  },
+
+  // Show details about a single campground
+  showCampground: (req, res) => {
+    const id = req.params.id 
+
+    Campgrounds.findById(id)
+      .then(campground => {
+        res.render('show', { campground })
+      })
+      .catch(err => console.log(`an error occurred... ${err}`))    
   }
 }

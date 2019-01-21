@@ -9,5 +9,6 @@ router.get('/', controller.home)
 router.get('/campgrounds', controller.getCampground)
 router.post('/campgrounds', controller.addCampground)
 router.get('/campgrounds/new', controller.getNewCampground)
+router.get('/campgrounds/:id', controller.showCampground)
 
 module.exports = router
