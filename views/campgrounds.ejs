@@ -14,10 +14,18 @@
   </header>
 
   <div class="row camp_wrapper" style="display: flex; flex-wrap: wrap;">
+    <!-- Check if any campgrounds exist in the DB -->
+
+    <% if (campGrounds.length < 1) { %>
+      <div class="well" style="margin: 1rem auto;">
+        <h3>Please add a new Campground with the button above</h3>
+      </div>
+    <% } %>
+    
     <% campGrounds.forEach(camp => { %>
       <div class="col-md-3 col-sm-6">
         <div class="thumbnail">
-          <img src="<%= camp.imgScr %>">
+          <img src="<%= camp.image %>">
           <div class="caption">
             <%= camp.name %>
           </div>
