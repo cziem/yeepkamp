@@ -3,12 +3,26 @@
 <div class="container">
   <header class="jumbotron">
     <div class="container">
-      <h1>Showing details about <%= campground.name %></h1>
-      <p class="lead">
-        <%= campground.name %> is the most popular camping ground west of the niger...
-      </p>
+      <h1><%= campground.name %></h1>
     </div>
   </header>
+  <div class="container">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <p>
+        <img src="<%= campground.image %>" alt="picture of <%= campground.name %>">
+      </p>
+      <p class="lead">
+        <%= campground.desc %>
+      </p>
+      <form action="/campgrounds/<%= campground._id %>" method="POST">
+        <button class="btn btn-danger">Remove</button>
+      </form>
+      <a 
+        class="btn btn-primary"
+        href="/campgrounds">Back
+      </a>
+    </div>
+  </div>
 </div>
 
 <% include partials/footer %>

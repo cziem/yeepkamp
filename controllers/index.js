@@ -42,5 +42,18 @@ module.exports = {
         res.render('show', { campground })
       })
       .catch(err => console.log(`an error occurred... ${err}`))    
+  },
+
+  // Delete a campground
+  removeCampground: (req, res) => {
+    const id = req.params.id
+
+    Campgrounds.findOneAndRemove(id)
+      .then(() => {
+        res.redirect('/campgrounds')
+      })
+      .catch(err => {
+        console.log(`Failed to delete, an error occurred: ${err}`)
+      })
   }
 }
