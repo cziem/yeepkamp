@@ -4,7 +4,13 @@ const Schema = mongoose.Schema
 const yelpKamp = new Schema({
   name: { type: String, required: true },
   image: { type: String, required: true },
-  desc: String
+  desc: String,
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "comment"
+    }
+  ]
 })
 
 const Campground = mongoose.model('YelpKamp', yelpKamp)
