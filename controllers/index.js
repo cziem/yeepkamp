@@ -37,8 +37,8 @@ module.exports = {
   showCampground: (req, res) => {
     const id = req.params.id 
 
-    Campgrounds.findById(id)
-      .then(campground => {
+    Campgrounds.findById(id).populate('Comment')
+      .then((campground) => {
         res.render('show', { campground })
       })
       .catch(err => console.log(`an error occurred... ${err}`))    
