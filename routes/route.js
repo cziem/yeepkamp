@@ -20,4 +20,10 @@ router.get('/campgrounds/:id', controller.showCampground)
 // Delete a campground
 router.post('/campgrounds/:id', controller.removeCampground)
 
+// Add New Comment
+router.get('/campgrounds/:id/comments/new', controller.addComment)
+
+// Create Comment
+router.post('/campgrounds/:id/comments', controller.createComment)
+
 module.exports = router
