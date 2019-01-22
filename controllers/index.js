@@ -1,4 +1,4 @@
-const Campgrounds = require('../models/schema')
+const Campgrounds = require('../models/campground')
 
 module.exports = {
   home: (req, res) => {
