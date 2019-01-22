@@ -1,4 +1,5 @@
 const Campgrounds = require('../models/campground')
+const Comment = require('../models/comment')
 
 module.exports = {
   home: (req, res) => {
@@ -54,6 +55,41 @@ module.exports = {
       })
       .catch(err => {
         console.log(`Failed to delete, an error occurred: ${err}`)
+      })
+  },
+
+  // Add New Comment
+  addComment: (req, res) => {
+    // render add new comment form
+    const id = req.params.id
+    Campgrounds.findById(id)
+      .then(campground => {
+        res.render('comments', { campground })
+      })
+      .catch(err => {
+        console.log(`an error has occurred... ErrorMessage: ${err}`)
+      })
+  },
+
+  // Create New Comment
+  createComment: (req, res) => {
+    // Create new comment
+    const campId = req.params.id
+    const comment = req.body.comment
+
+    Campgrounds.findById(campId)
+      .then((campground) => {
+        Comment.create(comment)
+          .then(newComment => {
+            campground.comments.push(newComment)
+            campground.save()
+            console.log(campground)
+            res.redirect(`/campgrounds/${campground._id}`)
+          })
+      })
+      .catch(err => {
+        res.redirect('/campgrounds')
+        console.log(`could not add comment, Error: ${err}`)
       })
   }
 }
