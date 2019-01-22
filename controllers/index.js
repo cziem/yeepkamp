@@ -38,7 +38,7 @@ module.exports = {
   showCampground: (req, res) => {
     const id = req.params.id 
 
-    Campgrounds.findById(id).populate('Comment')
+    Campgrounds.findById(id).populate('comments')
       .then((campground) => {
         res.render('show', { campground })
       })
