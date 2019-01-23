@@ -18,7 +18,9 @@ module.exports = {
   getCampground: (req, res) => {
     Campgrounds.find()
       .then((campGrounds) => {
-        res.render('index', { campGrounds })
+        res.render('index', { 
+          campGrounds
+         })
       })
   },
 
