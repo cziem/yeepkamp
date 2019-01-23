@@ -1,0 +1,24 @@
+<% include partials/header %>
+
+<div class="container">
+  <div class="row">
+    <header style="text-align: center">
+    <h1>Welcome Back to YelpKamp</h1>
+      <p class="lead">Login to your account</p>
+    </header>
+
+    <div class="container" style="width: 40%; margin: 45px auto;">
+      <form action="/login" method="POST">
+        <div class="form-group">
+          <input class="form-control" type="text" name="username" placeholder="Username">      
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="password" name="password">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-lg btn-success btn-block" type="submit">login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
