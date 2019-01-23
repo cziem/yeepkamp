@@ -25,7 +25,7 @@ router.get('/campgrounds/:id/edit', isLoggedIn,  controller.editCampground)
 router.put('/campgrounds/:id/', isLoggedIn,  controller.updateCampground)
 
 // Delete a campground
-router.post('/campgrounds/:id', controller.removeCampground)
+router.delete('/campgrounds/:id', isLoggedIn,  controller.removeCampground)
 
 // Add New Comment
 router.get('/campgrounds/:id/comments/new', isLoggedIn,  controller.addComment)
