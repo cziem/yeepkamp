@@ -22,7 +22,7 @@ router.get('/campgrounds/:id', controller.showCampground)
 router.get('/campgrounds/:id/edit', isLoggedIn,  controller.editCampground)
 
 // Handle Edit campground form
-router.put('/campgrounds/:id/', controller.updateCampground)
+router.put('/campgrounds/:id/', isLoggedIn,  controller.updateCampground)
 
 // Delete a campground
 router.post('/campgrounds/:id', controller.removeCampground)
