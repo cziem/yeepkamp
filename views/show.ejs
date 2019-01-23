@@ -20,6 +20,11 @@
           <h4 class="pull-right">$9:00/night</h4>
           <h4>
             <a href=""><%= campground.name %></a>
+            <span class="meta-user">
+              <em>
+                by <%= campground.author.username %>
+              </em>
+            </span>
           </h4>
           <p class="desc">
             <%= campground.desc %>

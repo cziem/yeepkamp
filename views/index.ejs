@@ -27,7 +27,12 @@
         <div class="thumbnail">
           <img src="<%= camp.image %>">
           <div class="caption">
-            <%= camp.name %>
+            <strong><%= camp.name %></strong>
+            <span class="meta-user">
+              <em> by
+                <%= camp.author.username %>
+              </em>
+            </span>
             <a href="/campgrounds/<%= camp._id %>" class="btn btn-primary">see more</a>
           </div>
         </div>
