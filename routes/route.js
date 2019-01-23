@@ -10,10 +10,10 @@ router.get('/', controller.home)
 router.get('/campgrounds', controller.getCampground)
 
 // Add new campground
-router.post('/campgrounds', controller.addCampground)
+router.post('/campgrounds', isLoggedIn, controller.addCampground)
 
 // Generate form to add new campground
-router.get('/campgrounds/new', controller.getNewCampground)
+router.get('/campgrounds/new', isLoggedIn, controller.getNewCampground)
 
 // Show a single campground
 router.get('/campgrounds/:id', controller.showCampground)
