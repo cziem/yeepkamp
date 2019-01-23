@@ -91,9 +91,13 @@ module.exports = {
       .then((campground) => {
         Comment.create(comment)
           .then(newComment => {
+            newComment.author.id = req.user._id
+            newComment.author.username = req.user.username
+            newComment.save()
+
             campground.comments.push(newComment)
             campground.save()
-            console.log(campground)
+            
             res.redirect(`/campgrounds/${campground._id}`)
           })
       })
