@@ -128,15 +128,10 @@ module.exports = {
   },
 
   // Handle Login request
-  // ===================
-  // This does not work from here...
-  // Comment out lines below to use the one from the route file
-  login: (req, res) => {
-    passport.authenticate('local', {
-      successRedirect: '/campgrounds',
-      failureRedirect: '/login'
-    })
-  },
+  login: passport.authenticate('local', {
+    successRedirect: '/campgrounds',
+    failureRedirect: '/login'
+  }),
 
   // logout user
   logout: (req, res) => {

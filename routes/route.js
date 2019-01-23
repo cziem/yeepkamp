@@ -37,18 +37,7 @@ router.post('/signup', controller.addSignup)
 router.get('/login', controller.showLogin)
 
 // Login user
-// ======================
-// This does not work from here...
 router.post('/login', controller.login)
-
-// Why doesn't it work?
-// ====================
-
-// THIS ONE WORKS FROM HERE
-router.post('login',  passport.authenticate('local', {
-  successRedirect: '/campgrounds',
-  failureRedirect: '/login'
-}))
 
 // Logout user
 router.get('/logout', controller.logout)
