@@ -1,3 +1,7 @@
+.navbar {
+  border-radius: 0;
+}
+
 .thumbnail img {
   width: 100%;
 }
@@ -17,4 +21,20 @@
 .reviews-header {
   color: #008080cc;
   font-weight: 600;
+}
+
+.meta-user, .meta-user a {
+  color: #848282;
+  font-size: small;
+}
+
+.meta-ratings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: .5em;
+}
+
+.meta-profile {
+  padding-top: .5em;
 }
