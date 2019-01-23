@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const passport = require('passport')
+const methodOverride = require('method-override')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -18,7 +19,6 @@ mongoose.connect(uri, {
   .then(() => console.log('connected to the database...'))
   .catch(err => console.log(`an error occurred: ${err}`))
 
-
 // Require Routes
 const routes = require('./routes/route')
 
@@ -33,7 +33,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'))
+app.use(methodOverride("_method"))
 
+// pass current user to every page and route
 app.use((req, res, next) => {
   res.locals.currentUser = req.user
 
