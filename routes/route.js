@@ -33,6 +33,15 @@ router.get('/campgrounds/:id/comments/new', isLoggedIn,  controller.addComment)
 // Create Comment
 router.post('/campgrounds/:id/comments', isLoggedIn,  controller.createComment)
 
+// Edit Comment 
+router.get('/campgrounds/:id/comments/:comment_id/edit', controller.editComment)
+
+// Update Comment 
+router.put('/campgrounds/:id/comments/:comment_id', controller.updateComment)
+
+// Delete Comment
+router.delete('/campgrounds/:id/comments/:comment_id', controller.deleteComment)
+
 // AUTH ROUTES
 // Show signup form
 router.get('/signup', controller.newSignup)

@@ -61,3 +61,7 @@ footer {
 .price {
   color: #008080cc;
 }
+
+.inline-form {
+  display: inline;
+}

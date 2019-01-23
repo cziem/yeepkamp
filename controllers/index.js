@@ -111,6 +111,26 @@ module.exports = {
       })
   },
 
+  // Edit Comment
+  editComment: (req, res) => {
+    const { comment_id, id } = req.params
+
+    Campgrounds.findById(id)
+      .then(campground => {
+        Comment.findById(comment_id)
+          .then(comment => {
+            res.render('editComments', { 
+              campground,
+              comment
+             })
+          })
+      })
+      .catch(() => {
+        res.redirect('back')
+      })
+
+  },
+
   // Create New Comment
   createComment: (req, res) => {
     // Create new comment
@@ -135,6 +155,25 @@ module.exports = {
         res.redirect('/campgrounds')
         console.log(`could not add comment, Error: ${err}`)
       })
+  },
+
+  // Update Comment
+  updateComment: (req, res) => {
+    const { comment_id, id } = req.params
+    comment = req.body.comment
+
+    Comment.findByIdAndUpdate(comment_id, comment)
+      .then(() => {
+        res.redirect(`/campgrounds/${id}`)
+      })
+      .catch(() => {
+        res.redirect('back')
+      })
+  },
+
+  // Delete Comment
+  deleteComment: (req, res) => {
+    res.send('deleting')
   },
 
   // AUTH LOGICS
