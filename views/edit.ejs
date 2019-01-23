@@ -10,14 +10,14 @@
     <div class="container" style="width: 40%; margin: 45px auto;">
       <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
         <div class="form-group">
-          <input class="form-control" type="text" name="name" value="<%= campground.name %>">      
+          <input class="form-control" type="text" name="campground[name]" value="<%= campground.name %>">      
         </div>
         <div class="form-group">
-          <input class="form-control" type="text" name="image" value="<%= campground.image %>">
+          <input class="form-control" type="text" name="campground[image]" value="<%= campground.image %>">
         </div>
         <div class="form-group">
           <textarea class="form-control"
-          name="desc">
+          name="campground[desc]">
             <%= campground.desc %>
           </textarea>
         </div>
