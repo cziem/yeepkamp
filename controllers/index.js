@@ -61,6 +61,33 @@ module.exports = {
       .catch(err => console.log(`an error occurred... ${err}`))    
   },
 
+  // Edit a campground form
+  editCampground: (req, res) => {
+    const campId = req.params.id
+
+    Campgrounds.findById(campId)
+      .then(campground => {
+        res.render('edit', { campground })
+      })
+      .catch(() => {
+        res.redirect(`/campgrounds/${campId}`)
+      })
+  },
+
+  // Handle Edit campground request
+  updateCampground: (req, res) => {
+     const campId = req.params.id 
+     const updateInfo = req.body.campground
+
+     Campgrounds.findByIdAndUpdate(campId, updateInfo)
+      .then(campground => {
+        res.redirect(`/campgrounds/${campground._id}`)
+      })
+      .catch(() => {
+        res.render('edit')
+      })
+  },
+
   // Delete a campground
   removeCampground: (req, res) => {
     const id = req.params.id
