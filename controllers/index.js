@@ -173,7 +173,15 @@ module.exports = {
 
   // Delete Comment
   deleteComment: (req, res) => {
-    res.send('deleting')
+    const { comment_id, id } = req.params
+
+    Comment.findByIdAndRemove(comment_id)
+      .then(() => {
+        res.redirect(`/campgrounds/${id}`)
+      })
+      .catch(() => {
+        res.redirect('back')
+      })
   },
 
   // AUTH LOGICS
