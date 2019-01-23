@@ -99,5 +99,48 @@ module.exports = {
         res.redirect('/campgrounds')
         console.log(`could not add comment, Error: ${err}`)
       })
+  },
+
+  // AUTH LOGICS
+  newSignup: (req, res) => {
+    res.render('signup')
+  },
+
+  // Handle Signup
+  addSignup: (req, res) => {
+    const { username, password } = req.body
+
+    User.register(new User({ username }), password)
+      .then(user => {
+        passport.authenticate('local')(req, res, () => {
+          res.redirect('/campgrounds')
+        })
+      })
+      .catch(err => {
+        console.log(`Could not sign up new user. Error: ${err}`)
+        res.render('signup')
+      })
+  },  
+
+  // Show login form
+  showLogin: (req, res) => {
+    res.render('login')
+  },
+
+  // Handle Login request
+  // ===================
+  // This does not work from here...
+  // Comment out lines below to use the one from the route file
+  login: (req, res) => {
+    passport.authenticate('local', {
+      successRedirect: '/campgrounds',
+      failureRedirect: '/login'
+    })
+  },
+
+  // logout user
+  logout: (req, res) => {
+    req.logout()
+    res.redirect('/campgrounds')
   }
 }

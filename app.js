@@ -22,18 +22,17 @@ mongoose.connect(uri, {
 // Require Routes
 const routes = require('./routes/route')
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.set('view engine', 'ejs')
-app.use(express.static(__dirname + '/public'))
-
 // CONFIGURE PASSPORT
 app.use(require('express-session')({
   secret: secret,
   resave: false,
   saveUninitialized: false
 }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.set('view engine', 'ejs')
+app.use(express.static(__dirname + '/public'))
 
 app.use('/', routes)
 
