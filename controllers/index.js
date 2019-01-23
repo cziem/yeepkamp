@@ -31,7 +31,7 @@ module.exports = {
 
   // Add a new campground
   addCampground: (req, res) => {
-    const { name, image, desc } = req.body
+    const { name, image, desc, price } = req.body
 
     const author = {
       id: req.user._id,
@@ -40,6 +40,7 @@ module.exports = {
 
     const campground = new Campgrounds({
       name,
+      price,
       image,
       desc,
       author
