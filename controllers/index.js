@@ -46,8 +46,14 @@ module.exports = {
     })
 
     campground.save()
-      .then(() => res.redirect('/campgrounds'))
-      .catch(err => console.log(`an error occurred... ${err}`))
+      .then(() => {
+        req.flash('success', 'Created campground successfully')
+        res.redirect('/campgrounds')
+      })
+      .catch(err => {
+        req.flash('error', 'Bad Request! Could not create campground')
+        res.redirect('/campgrounds')
+      })
   },
 
   // Show details about a single campground
@@ -58,7 +64,10 @@ module.exports = {
       .then((campground) => {
         res.render('show', { campground })
       })
-      .catch(err => console.log(`an error occurred... ${err}`))    
+      .catch(err => {
+        req.flash('error', 'Could not locate resource...')
+        res.redirect('/campgrounds')
+      })    
   },
 
   // Edit a campground form
@@ -78,6 +87,7 @@ module.exports = {
 
      Campgrounds.findByIdAndUpdate(campId, updateInfo)
       .then(campground => {
+        req.flash('success', 'Updated campground successfully')
         res.redirect(`/campgrounds/${campground._id}`)
       })
       .catch(() => {
@@ -91,9 +101,11 @@ module.exports = {
 
     Campgrounds.findOneAndRemove(id)
       .then(() => {
+        req.flash('success', 'Removed campground successfully')
         res.redirect('/campgrounds')
       })
       .catch(err => {
+        req.flash('error', 'Could not delete campground')
         console.log(`Failed to delete, an error occurred: ${err}`)
       })
   },
@@ -107,6 +119,7 @@ module.exports = {
         res.render('comments', { campground })
       })
       .catch(err => {
+        req.flash('warn', 'Please ensure you have the right access')
         console.log(`an error has occurred... ErrorMessage: ${err}`)
       })
   },
@@ -164,6 +177,7 @@ module.exports = {
 
     Comment.findByIdAndUpdate(comment_id, comment)
       .then(() => {
+        req.flash('success', 'You updated your comment')
         res.redirect(`/campgrounds/${id}`)
       })
       .catch(() => {
@@ -177,6 +191,7 @@ module.exports = {
 
     Comment.findByIdAndRemove(comment_id)
       .then(() => {
+        req.flash('success', 'You deleted your comment')
         res.redirect(`/campgrounds/${id}`)
       })
       .catch(() => {
@@ -196,12 +211,13 @@ module.exports = {
     User.register(new User({ username }), password)
       .then(user => {
         passport.authenticate('local')(req, res, () => {
+          req.flash('success', `Successfully signed up. Good to meet you ${user.username}`)
           res.redirect('/campgrounds')
         })
       })
       .catch(err => {
-        console.log(`Could not sign up new user. Error: ${err}`)
-        res.render('signup')
+        req.flash('error', err.message)
+        return res.render('signup')
       })
   },  
 
@@ -219,6 +235,7 @@ module.exports = {
   // logout user
   logout: (req, res) => {
     req.logout()
+    req.flash('success', 'You have been logged out!')
     res.redirect('/campgrounds')
   }
 }

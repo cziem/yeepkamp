@@ -72,10 +72,12 @@
               <strong><%= comment.author.username %></strong>
               <span class="pull-right"><%= comment.createdAt.toDateString() %></span>
               <p class="desc"><%= comment.text %></p>
-              <a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" class="btn btn-xs btn-warning">edit comment</a>
-              <form class="inline-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                <button class="btn btn-xs btn-danger">remove comment</button>
-              </form>
+              <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                <a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" class="btn btn-xs btn-warning">edit comment</a>
+                <form class="inline-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                  <button class="btn btn-xs btn-danger">remove comment</button>
+                </form>
+              <% } %>
             </div>
           </div>
         <% }) %>

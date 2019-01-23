@@ -6,6 +6,7 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next()
     } else {
+      req.flash('error', 'Please login first...')
       res.redirect('/login')
     }
   },
@@ -19,13 +20,16 @@ module.exports = {
         if (campground.author.id.equals(req.user._id)) {
           next()
         } else {
+          req.flash('error', 'You are not authorized for that')
           res.redirect('back')
         }
       })
       .catch(() => {
+        req.flash('warn', 'Could not find the resource you looked up...')
         res.redirect('back')
       })
     } else {
+      req.flash('error', 'Please login first...')
       res.redirect('back')
     }
   },
@@ -39,13 +43,16 @@ module.exports = {
         if (comment.author.id.equals(req.user._id)) {
           next()
         } else {
+          req.flash('error', 'You are not authorized for that')
           res.redirect('back')
         }
       })
       .catch(() => {
+        req.flash('warn', 'Could not find the resource you looked up...')
         res.redirect('back')
       })
     } else {
+      req.flash('error', 'Please login first...')
       res.redirect('back')
     }
   }

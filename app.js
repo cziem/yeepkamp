@@ -1,9 +1,10 @@
 require('dotenv').config()
-const express = require('express')
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
-const passport = require('passport')
-const methodOverride = require('method-override')
+const  express         = require('express'),
+      bodyParser      = require('body-parser'),
+      mongoose        = require('mongoose'),
+      passport        = require('passport'),
+      methodOverride  = require('method-override'),
+      flash           = require('connect-flash')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -34,11 +35,14 @@ app.use(passport.session())
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'))
 app.use(methodOverride("_method"))
+app.use(flash())
 
 // pass current user to every page and route
 app.use((req, res, next) => {
   res.locals.currentUser = req.user
-
+  res.locals.error = req.flash("error")
+  res.locals.warn = req.flash("warn")
+  res.locals.success = req.flash("success")
   next()
 })
 
