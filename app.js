@@ -34,6 +34,12 @@ app.use(passport.session())
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/public'))
 
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user
+
+  next()
+})
+
 app.use('/', routes)
 
 
