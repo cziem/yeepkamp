@@ -47,3 +47,17 @@ footer {
   justify-content: center;
   color: #333;
 }
+
+.actions {
+  display: flex;
+  width: 20%;
+  justify-content: space-evenly;
+}
+
+.actions.back {
+  margin-top: 1em;
+}
+
+.price {
+  color: #008080cc;
+}

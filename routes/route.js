@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const controller = require('../controllers/index')
-const isLoggedIn = require('../middlewares/auth')
+const { isLoggedIn, isOwner } = require('../middlewares/auth')
 
 router.get('/', controller.home)
 
@@ -19,13 +19,13 @@ router.get('/campgrounds/new', isLoggedIn, controller.getNewCampground)
 router.get('/campgrounds/:id', controller.showCampground)
 
 // Edit a campground form
-router.get('/campgrounds/:id/edit', isLoggedIn,  controller.editCampground)
+router.get('/campgrounds/:id/edit', isOwner,  controller.editCampground)
 
 // Handle Edit campground form
-router.put('/campgrounds/:id/', isLoggedIn,  controller.updateCampground)
+router.put('/campgrounds/:id/', isOwner,  controller.updateCampground)
 
 // Delete a campground
-router.delete('/campgrounds/:id', isLoggedIn,  controller.removeCampground)
+router.delete('/campgrounds/:id', isOwner,  controller.removeCampground)
 
 // Add New Comment
 router.get('/campgrounds/:id/comments/new', isLoggedIn,  controller.addComment)

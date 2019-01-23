@@ -69,9 +69,6 @@ module.exports = {
       .then(campground => {
         res.render('edit', { campground })
       })
-      .catch(() => {
-        res.redirect(`/campgrounds/${campId}`)
-      })
   },
 
   // Handle Edit campground request

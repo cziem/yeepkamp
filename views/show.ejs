@@ -8,6 +8,13 @@
         <li class="list-group-item active">info 1</li>
         <li class="list-group-item">info 3</li>
         <li class="list-group-item">info 2</li>
+
+        <div class="actions back">
+          <a 
+          class="btn btn-primary"
+          href="/campgrounds">Back
+          </a>
+        </div>
       </div>
     </div>
     
@@ -17,7 +24,7 @@
         <img class="image-responsive" src="<%= campground.image %>" alt="picture of <%= campground.name %>">
 
         <div class="caption-full">
-          <h4 class="pull-right">$9:00/night</h4>
+          <h4 class="pull-right price"><strong>$9:00/night</strong></h4>
           <h4>
             <a href=""><%= campground.name %></a>
             <span class="meta-user">
@@ -30,7 +37,16 @@
             <%= campground.desc %>
           </p>
           <div>
-            <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning btn-sm">Edit</a>
+
+          <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+            <div class="actions">
+              <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning btn-sm">Edit</a>
+
+              <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger btn-sm">Remove</button>
+              </form>
+            </div>
+          <% } %>
           </div>
         </div>
       </div>
@@ -63,13 +79,5 @@
     </div>
   </div>
 </div>
-  
-      <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-        <button class="btn btn-danger">Remove</button>
-      </form>
-      <a 
-        class="btn btn-primary"
-        href="/campgrounds">Back
-      </a>
 
 <% include partials/footer %>
