@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const controller = require('../controllers/index')
-const { isLoggedIn, isOwner } = require('../middlewares/auth')
+const { isLoggedIn, isOwner, isCommentOwner } = require('../middlewares/auth')
 
 router.get('/', controller.home)
 
@@ -34,13 +34,13 @@ router.get('/campgrounds/:id/comments/new', isLoggedIn,  controller.addComment)
 router.post('/campgrounds/:id/comments', isLoggedIn,  controller.createComment)
 
 // Edit Comment 
-router.get('/campgrounds/:id/comments/:comment_id/edit', controller.editComment)
+router.get('/campgrounds/:id/comments/:comment_id/edit', isCommentOwner, controller.editComment)
 
 // Update Comment 
-router.put('/campgrounds/:id/comments/:comment_id', controller.updateComment)
+router.put('/campgrounds/:id/comments/:comment_id', isCommentOwner, controller.updateComment)
 
 // Delete Comment
-router.delete('/campgrounds/:id/comments/:comment_id', controller.deleteComment)
+router.delete('/campgrounds/:id/comments/:comment_id', isCommentOwner, controller.deleteComment)
 
 // AUTH ROUTES
 // Show signup form
