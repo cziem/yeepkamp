@@ -13,3 +13,8 @@
 .comment {
   margin-bottom: 1em;
 }
+
+.reviews-header {
+  color: #008080cc;
+  font-weight: 600;
+}
