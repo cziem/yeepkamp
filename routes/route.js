@@ -18,6 +18,12 @@ router.get('/campgrounds/new', isLoggedIn, controller.getNewCampground)
 // Show a single campground
 router.get('/campgrounds/:id', controller.showCampground)
 
+// Edit a campground form
+router.get('/campgrounds/:id/edit', controller.editCampground)
+
+// Handle Edit campground form
+router.put('/campgrounds/:id/', controller.updateCampground)
+
 // Delete a campground
 router.post('/campgrounds/:id', controller.removeCampground)
 
