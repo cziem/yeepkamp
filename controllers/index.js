@@ -33,10 +33,16 @@ module.exports = {
   addCampground: (req, res) => {
     const { name, image, desc } = req.body
 
+    const author = {
+      id: req.user._id,
+      username: req.user.username
+    }
+
     const campground = new Campgrounds({
       name,
       image,
-      desc
+      desc,
+      author
     })
 
     campground.save()
