@@ -26,9 +26,15 @@
           </li>
         <% } else { %>
           <li>
-            <a href="#">
-              welcome <strong><%= currentUser.username %></strong>
-            </a>
+            <% if (currentUser && currentUser.isAdmin) { %>
+              <a href="#" class="isAdmin">
+                welcome Admin <strong><%= currentUser.username %></strong>
+              </a>
+            <% } else { %>
+              <a href="#">
+                welcome <strong><%= currentUser.username %></strong>
+              </a>
+            <% } %>
           </li>
           <li>
             <a href="/logout">Logout</a>
