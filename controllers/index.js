@@ -207,9 +207,14 @@ module.exports = {
 
   // Handle Signup
   addSignup: (req, res) => {
-    const { username, password } = req.body
+    let newUser = new User({ username: req.body.username })
+    const { password } = req.body
 
-    User.register(new User({ username }), password)
+    if (req.body.adminCode === process.env.ADMIN_CODE) {
+      newUser.isAdmin = true
+    }
+
+    User.register(newUser, password)
       .then(user => {
         passport.authenticate('local')(req, res, () => {
           req.flash('success', `Successfully signed up. Good to meet you ${user.username}`)
