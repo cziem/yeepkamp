@@ -10,7 +10,7 @@ const comment = new Schema({
     },
     username: String
   },
-  createdAt: { type: Date, default: Date().toLocaleString() }
+  createdAt: { type: Date, default: Date.now }
 })
 
 const Comment = mongoose.model('Comment', comment)
