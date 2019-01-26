@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('./config/config')
 const  express         = require('express'),
       bodyParser      = require('body-parser'),
       mongoose        = require('mongoose'),
@@ -7,8 +7,8 @@ const  express         = require('express'),
       flash           = require('connect-flash')
 
 const app = express()
-const port = process.env.PORT || 3000
-const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/yelpkamp"
+const port = process.env.PORT
+const uri = process.env.MONGODB_URI
 const secret = process.env.APP_SECRET
 
 // connect mongoose
@@ -17,7 +17,7 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useFindAndModify: true
 })
-  .then(() => console.log('connected to the database...'))
+  .then(() => console.log(`connected to the database... @ ${uri}`))
   .catch(err => console.log(`an error occurred: ${err}`))
 
 // Require Routes
@@ -47,6 +47,5 @@ app.use((req, res, next) => {
 })
 
 app.use('/', routes)
-
 
 app.listen(port, () => console.log(`Yelpkamp is running on localhost://${port}`))
