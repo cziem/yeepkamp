@@ -1,23 +1,16 @@
 <% include partials/header %>
 
-<div class="container">
-  <div class="row">
-    <header style="text-align: center">
-      <h1>Add a comment to <%= campground.name %></h1>
-      <a class="btn btn-info" href="/campgrounds/<%= campground._id %>">go back</a>
-    </header>
-
-    <div class="container" style="width: 40%; margin: 45px auto;">
-      <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
-        <div class="form-group">
-          <textarea class="form-control"
-          name="comment[text]">
-          </textarea>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
-        </div>
-      </form>
-    </div>
+<form class="form-signin" action="/campgrounds/<%= campground._id %>/comments" method="POST">
+  <div class="text-center mb-4">
+    <img class="mb-2" src="/images/logo.png" alt="yeepkamp logo" width="100" height="100">
+    <h1 class="h3 mb-3 font-weight-normal">Add a comment to <%= campground.name %></h1>
+    <a class="btn btn-info" href="/campgrounds/<%= campground._id %>">go back</a>
   </div>
-</div>
+
+  <div class="form-label-group">
+    <textarea class="form-control" name="comment[text]"></textarea>
+  </div>
+  
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+</form>
+
