@@ -5,7 +5,11 @@ const yelpKamp = new Schema({
   name: { type: String, required: true },
   image: { type: String, required: true },
   desc: String,
-  price: String,
+  price: Number,
+  location: String,
+  lat: Number,
+  lng: Number,
+  createdAt: { type: Date, default: Date.now },
   author: {
     id: {
       type: Schema.Types.ObjectId,
