@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="stylesheet" href="/stylesheets/app.css">
   <title>Yelp Camp | Learn to code with Node</title>
 </head>
@@ -13,7 +13,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="/" class="navbar-brand">YelpKamp</a>
+      <a class="navbar-brand" href="/">Carousel</a>
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
@@ -62,3 +62,43 @@
     </div>
   <% } %>
 </div>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="/">YelpKamp</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <% if (!currentUser) { %>
+          <li>
+            <a class="nav-link" href="/signup">Sign Up</a>
+          </li>
+          <li>
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+        <% } else { %>
+          <li>
+            <% if (currentUser && currentUser.isAdmin) { %>
+              <a class="nav-link" href="#" class="isAdmin">
+                welcome Admin <strong><%= currentUser.username %></strong>
+              </a>
+            <% } else { %>
+              <a class="nav-link" href="#">
+                welcome <strong><%= currentUser.username %></strong>
+              </a>
+            <% } %>
+          </li>
+          <li>
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        <% } %>
+      </ul>
+  </div>
+</nav>
