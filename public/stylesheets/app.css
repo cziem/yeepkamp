@@ -14,13 +14,10 @@
   padding: 9px;
 }
 
-.comment {
-  margin-bottom: 1em;
-}
-
 .reviews-header {
   color: #008080cc;
   font-weight: 600;
+  font-size: 1.5em;
 }
 
 .meta-user, .meta-user a {
@@ -76,6 +73,7 @@ footer {
 }
 
 .price {
+  font-size: small;
   color: #008080cc;
 }
 
