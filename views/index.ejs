@@ -1,49 +1,48 @@
 <% include partials/header %>
 
-<div class="container">
-  <header class="jumbotron">
-    <div class="container">
-      <h1>Select a Campground</h1>
-      <p class="lead">
-        Carefully hand-picked for you from top campsites all over the world
-      </p>
+<main role="main">
+
+  <section class="jumbotron text-center bg-dark">
+    <div class="container spaced--top">
+      <h1 class="jumbotron-heading">Select a Campground</h1>
+      <p class="lead text-muted">Carefully hand-picked for you from top campsites all over the world</p>
       <p>
-        <a href="/campgrounds/new" class="btn btn-primary">Add new Campground</a>
+        <a href="/campgrounds/new" class="btn btn-primary my-2">Add new Campground</a>
       </p>
     </div>
-  </header>
+  </section>
 
-  <div class="row camp_wrapper" style="display: flex; flex-wrap: wrap;">
-    <!-- Check if any campgrounds exist in the DB -->
+  <div class="album py-5 bg-light">
+    <div class="container">
 
-    <% if (campGrounds.length < 1) { %>
-      <div class="well" style="margin: 1rem auto;">
-        <h3>Please add a new Campground with the button above</h3>
-      </div>
-    <% } %>
-    
-    <% campGrounds.forEach(camp => { %>
-      <div class="col-md-3 col-sm-6">
-        <div class="thumbnail">
-          <img src="<%= camp.image %>">
-          <div class="caption">
-            <div class="meta-profile">
-              <strong><%= camp.name %></strong>
-              <span class="meta-user">
-                <em> by
-                  <a href="#"> <%= camp.author.username %></a>
-                </em>
-              </span>
-            </div>
-            <hr />
-            <div class="meta-ratings">
-              <a href="/campgrounds/<%= camp._id %>" class="btn btn-primary btn-sm">see more</a>
+      <div class="row">
+        <% campGrounds.forEach(camp => { %>
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card mb-4 shadow-sm">
+              <img src="<%= camp.image %>" class="card-img-top img-fluid" alt="<%= camp.name %>">
+              <div class="card-body">
+                <h6 class="card-title meta-user">
+                  <strong><%= camp.name %></strong>
+                  <em> by
+                    <a class="meta-anchor" href="#"> 
+                      <%= camp.author.username %>
+                    </a>
+                  </em>
+                </h6>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group text-center">
+                    <a href="/campgrounds/<%= camp._id %>" class="btn btn-primary btn-sm">see more</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        <% }) %>
+
       </div>
-    <% }) %>
+    </div>
   </div>
-</div>
+
+</main>
 
 <% include partials/footer %>

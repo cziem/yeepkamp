@@ -28,15 +28,32 @@
   font-size: small;
 }
 
-.meta-ratings {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: .5em;
-}
-
 .meta-profile {
   padding-top: .5em;
+}
+
+.meta-anchor {
+  color: #14a4bc;
+}
+
+.spaced--top {
+  padding-top: 1em;
+}
+
+.spaced--top .jumbotron-heading {
+  color: #e3e3e3 !important;
+}
+
+.spaced--top .lead {
+  color: #303030 !important;
+}
+
+.jumbotron {
+  margin-top: 2em;
+  background: url('../images/bg.jpg') no-repeat;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 0 !important;
 }
 
 footer {
