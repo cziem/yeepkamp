@@ -1,32 +1,31 @@
 <% include partials/header %>
 
-<div class="container">
-  <div class="row">
-    <header style="text-align: center">
-      <h1>Add a CampGround</h1>
-      <a  class="btn btn-info" href="/campgrounds">See all Campgrounds</a>
-    </header>
-
-    <div class="container" style="width: 40%; margin: 45px auto;">
-      <form action="/campgrounds" method="POST">
-        <div class="form-group">
-          <input class="form-control" type="text" name="name" placeholder="Add new campground">      
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="number" name="price" placeholder="Enter price" min="0.01" step="0.01">      
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="image" placeholder="image url here...">
-        </div>
-        <div class="form-group">
-          <textarea class="form-control"
-          name="desc">
-          </textarea>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
-        </div>
-      </form>
-    </div>
+<form class="form-signin" action="/campgrounds" method="POST">
+  <div class="text-center mb-4">
+    <img class="mb-2" src="/images/logo.png" alt="yeepkamp logo" width="100" height="100">
+    <h1 class="h3 mb-3 font-weight-normal">Add a CampGround</h1>
+    <a  class="btn btn-info" href="/campgrounds">See all Campgrounds</a>
   </div>
-</div>
+
+  <div class="form-label-group">
+    <input class="form-control" type="text" name="name" placeholder="Add new campground">
+    <label for="name">name</label>
+  </div>  
+
+  <div class="form-label-group">
+    <input class="form-control" type="number" name="price" placeholder="Enter price" min="0.01" step="0.01"> 
+    <label for="price">price</label>
+  </div>
+
+  <div class="form-label-group">
+    <input class="form-control" type="text" name="image" placeholder="image url here...">
+    <label for="image">image</label>
+  </div>
+
+  <div class="form-group">
+    <textarea class="form-control" name="desc"></textarea>
+  </div>
+
+  <button class="btn btn-lg btn-success btn-block" type="submit">Add Campground</button>
+  <p class="mt-5 mb-3 text-muted text-center">YeepKamp&copy; 2018-2019</p>
+</form>
