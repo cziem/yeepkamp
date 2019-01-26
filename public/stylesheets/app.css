@@ -49,7 +49,7 @@
 }
 
 .jumbotron {
-  margin-top: 2em;
+  margin-top: 1.5em; /*This line goes off once we fix the on scrolll effect for the navbar */
   background: url('../images/bg.jpg') no-repeat;
   background-size: cover;
   background-position: center center;
@@ -86,4 +86,18 @@ footer {
 .flash {
   width: 60%;
   margin: 0 auto;
+}
+
+.logo {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.form-signin {
+  padding-top: 5em !important;
 }
