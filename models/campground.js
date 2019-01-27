@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const Comment = require('./comment')
 
 const yelpKamp = new Schema({
   name: { type: String, required: true },
@@ -23,6 +24,19 @@ const yelpKamp = new Schema({
       ref: "Comment"
     }
   ]
+})
+
+yelpKamp.pre('remove', async function(next) {
+  try {
+    await Comment.remove({
+      "_id": {
+        $in: this.comments
+      }
+    })
+    next()
+  } catch (err) {
+    next(err)
+  }
 })
 
 const Campground = mongoose.model('YelpKamp', yelpKamp)
