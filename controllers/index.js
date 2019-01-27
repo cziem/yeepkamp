@@ -48,7 +48,7 @@ module.exports = {
 
     campground.save()
       .then(() => {
-        req.flash('success', 'Created campground successfully')
+        req.flash('success', `Created ${campground.name} successfully`)
         res.redirect('/campgrounds')
       })
       .catch(err => {
@@ -88,7 +88,7 @@ module.exports = {
 
      Campgrounds.findByIdAndUpdate(campId, updateInfo)
       .then(campground => {
-        req.flash('success', 'Updated campground successfully')
+        req.flash('success', `Updated ${campground.name} successfully`)
         res.redirect(`/campgrounds/${campground._id}`)
       })
       .catch(() => {
@@ -103,7 +103,7 @@ module.exports = {
 
     Campgrounds.findByIdAndDelete(id)
       .then(() => {
-        req.flash('success', 'Removed campground successfully')
+        req.flash('success', `Removed campground successfully`)
         res.redirect('/campgrounds')
       })
       .catch(err => {

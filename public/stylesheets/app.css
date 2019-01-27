@@ -87,6 +87,7 @@ footer {
   position: absolute;
   top: 5vh;
   left: 20vw;
+  z-index: 100;
 }
 
 .logo {
