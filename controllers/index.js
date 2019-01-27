@@ -99,8 +99,9 @@ module.exports = {
   // Delete a campground
   removeCampground: (req, res) => {
     const id = req.params.id
+    console.log(id)
 
-    Campgrounds.findOneAndRemove(id)
+    Campgrounds.findByIdAndDelete(id)
       .then(() => {
         req.flash('success', 'Removed campground successfully')
         res.redirect('/campgrounds')
