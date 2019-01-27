@@ -17,7 +17,7 @@ module.exports = {
       Campgrounds.findById(campId)
       .then(campground => {
         // is user owner of campground
-        if (campground.author.id.equals(req.user._id)) {
+        if (campground.author.id.equals(req.user._id) || req.user.isAdmin) {
           next()
         } else {
           req.flash('error', 'You are not authorized for that')
@@ -40,7 +40,7 @@ module.exports = {
       Comment.findById(comment_id)
       .then(comment => {
         // is user owner of campground
-        if (comment.author.id.equals(req.user._id)) {
+        if (comment.author.id.equals(req.user._id) || req.user.isAdmin) {
           next()
         } else {
           req.flash('error', 'You are not authorized for that')

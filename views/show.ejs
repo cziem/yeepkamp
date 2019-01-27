@@ -30,7 +30,7 @@
             <p class="float-right price"><strong>$<%= campground.price %>/night</strong></p>
           </h5>
           <p class="card-text text-muted"><%= campground.desc %></p>
-          <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+          <% if (currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
             <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-warning btn-sm">Edit</a>
 
             <form class="inline-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
@@ -66,7 +66,7 @@
                     <span class="float-right"><%= moment(comment.createdAt).fromNow() %></span>
                   </p>
                   <span class="float-right">
-                    <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                    <% if (currentUser && comment.author.id.equals(currentUser._id) || currentUser.isAdmin) { %>
                       <a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" class="btn btn-sm btn-warning">edit</a>
                       <form class="inline-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
                         <button class="btn btn-sm btn-danger">remove</button>
