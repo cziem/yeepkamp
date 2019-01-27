@@ -84,6 +84,9 @@ footer {
 .flash {
   width: 60%;
   margin: 0 auto;
+  position: absolute;
+  top: 5vh;
+  left: 20vw;
 }
 
 .logo {
@@ -97,5 +100,5 @@ footer {
 }
 
 .form-signin {
-  padding-top: 3em !important;
+  padding-top: 1em !important;
 }
