@@ -242,7 +242,7 @@ module.exports = {
   // logout user
   logout: (req, res) => {
     req.logout()
-    req.flash('success', 'You have been logged out!')
+    req.flash('success', `See you soon...`)
     res.redirect('/campgrounds')
   }
 }
