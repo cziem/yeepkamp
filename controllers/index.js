@@ -99,7 +99,6 @@ module.exports = {
   // Delete a campground
   removeCampground: (req, res) => {
     const id = req.params.id
-    console.log(id)
 
     Campgrounds.findByIdAndDelete(id)
       .then(() => {
