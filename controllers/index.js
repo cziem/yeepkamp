@@ -244,5 +244,25 @@ module.exports = {
     req.logout()
     req.flash('success', `See you soon...`)
     res.redirect('/campgrounds')
+  },
+
+  // USER PROFILE
+  showPublicProfile: (req, res) => {
+    const username = req.params.username 
+
+    User.findOne({ username })
+      .then(user => {
+        Campgrounds
+          .find()
+          .where('author.id')
+          .equals(user._id)
+          .then(campgrounds => {
+            res.render('users/profile', { user, campgrounds })
+          })
+      })
+      .catch(err => {
+        req.flash('error', `Could not find ${username}`)
+      })
+
   }
 }
