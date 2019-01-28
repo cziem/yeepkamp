@@ -62,7 +62,10 @@ module.exports = {
     const id = req.params.id 
 
     Campgrounds.findById(id).populate('comments')
-      .then((campground) => {
+      .then((campground, err) => {
+        if (err || !campground) {
+          return res.flash('error', 'Could not locate resource...')
+        }
         res.render('show', { campground })
       })
       .catch(err => {
@@ -141,6 +144,7 @@ module.exports = {
           })
       })
       .catch(() => {
+        req.flash('error', 'Could not find the campground')
         res.redirect('back')
       })
 
