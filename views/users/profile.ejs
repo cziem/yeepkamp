@@ -1,0 +1,94 @@
+<% include ../partials/header %>
+
+<div class="container py-5">
+  <div class="row pb-4">
+    <div class="col-md-3 text-center">
+      <a href="/campgrounds" class="btn btn-sm bg-secondary">
+        <i class="fas fa-arrow-circle-left"></i>
+        All Campgrounds
+      </a>
+    </div>
+    <div class="col-md-9 pl-5 cta-foot">
+      <h2>Profile Page</h2>
+      <% if (currentUser && campgrounds[0].author.id.equals(currentUser._id)) { %>
+        <a href="" class="btn btn-sm btn-info">Edit</a>
+      <% } %>
+    </div>
+  </div>
+ 
+  <div class="row py-2">
+    <div class="col-md-3 col-lg-3">
+      <div class="card shadow-sm">
+        <% if (user.avatar) { %>
+          <img src="<%= user.avatar %>" class="card-img-top" alt="<%= user.username %>'s picture">
+        <% } else { %>
+          <img src="/images/userProfile.png" class="card-img-top" alt="avatar picture for <%= user.username %>"> 
+        <% } %>
+        <div class="card-body text-center">
+          <h5 class="card-title">
+            <%= user.username %>
+          </h5>
+          <% if (user.status) { %>
+            <p class="card-text"><%= user.status %></p>
+          <% } else { %>
+            <p class="card-text">Hi there, am your ticket to your next fun day... </p>
+          <% } %>
+    
+          <hr />
+          <div class="row">
+            <div class="container px-3 cta-foot">
+              <a href="#">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-facebook-square"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-twitter "></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9 col-lg-9 pl-5">
+      <h3 class="text-info">All Campgrounds by <%= user.username %></h3>
+      <hr />
+      <div class="row">
+        <% campgrounds.forEach(campground => { %>
+          <div class="col-lg-4 col-md-6 col-sm-6">
+            <div class="card mb-4 shadow-sm">
+              <img src="<%= campground.image %>" class="card-img-top img-fluid" alt="<%= campground.name %>">
+              <div class="card-body">
+                <h6 class="card-title">
+                  <strong><%= campground.name %></strong>
+                  <span class="text-muted" style="font-size: .75em;">created <%= moment(campground.createdAt).fromNow() %></span>
+                </h6>
+                <p class="card-text text-muted"><%= campground.desc %></p>
+                <div class="cta-foot">
+                  <a href="/campgrounds/<%= campground.id %>" class="btn btn-info" style="font-size: small;">See Details</a>
+                  <span class="float-right price">
+                    <strong>$
+                      <%= campground.price %>/night</strong>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+
+      <div class="container pt-3">
+        <h3 class="text-info">Review Rating</h3>
+        <p class="text-secondary ml-2">N/A</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer %>
+
