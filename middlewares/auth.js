@@ -26,7 +26,7 @@ module.exports = {
       })
       .catch(() => {
         req.flash('warn', 'Could not find the resource you looked up...')
-        res.redirect('back')
+        res.redirect('/campgrounds')
       })
     } else {
       req.flash('error', 'Please login first...')
