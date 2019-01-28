@@ -74,7 +74,7 @@ footer {
 
 .price {
   font-size: small;
-  color: #008080cc;
+  color: #7a8f8fcc;
 }
 
 .inline-form {
@@ -102,4 +102,24 @@ footer {
 
 .form-signin {
   padding-top: 1em !important;
+}
+
+.cta-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.px-3.cta-foot a, 
+.px-3.cta-foot a:visited {
+  color: #333;
+  font-size: 1.65em;
+}
+
+.px-3.cta-foot a:hover {
+  color: #17a2b8;
+}
+
+.edit {
+  font-size: 1em;
 }

@@ -24,7 +24,9 @@
             <a href=""><%= campground.name %></a>
             <span class="meta-user">
               <em>
-                by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %>
+                by 
+                <a href="/users/<%= campground.author.username %>"><%= campground.author.username %>
+                </a>, <%= moment(campground.createdAt).fromNow() %>
               </em>
             </span>
             <p class="float-right price"><strong>$<%= campground.price %>/night</strong></p>

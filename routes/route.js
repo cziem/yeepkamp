@@ -58,4 +58,7 @@ router.post('/login', controller.login)
 // Logout user
 router.get('/logout', controller.logout)
 
+// USER PROFILE
+router.get('/users/:username', controller.showPublicProfile)
+
 module.exports = router
