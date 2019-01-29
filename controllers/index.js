@@ -26,12 +26,29 @@ module.exports = {
 
   // Get all the campgrounds
   getCampground: (req, res) => {
-    Campgrounds.find()
-      .then((campGrounds) => {
-        res.render('index', { 
-          campGrounds
-         })
-      })
+    const search = req.query.search
+    
+    if (search) {
+      const regex = new RegExp(escapeRegex(search), "gi")
+
+      Campgrounds.find({ name: regex })
+        .then(campGrounds => {
+          if (campGrounds.length < 1) {
+            req.flash('error', 'No match for your query')
+            res.redirect('/campgrounds')
+          } else {
+            res.render('index', { campGrounds })
+          }
+        })
+    } else {
+      Campgrounds.find()
+        .then((campGrounds) => {
+          res.render('index', { 
+            campGrounds
+           })
+        })
+    }
+    
   },
 
   // Add new campground form
@@ -322,3 +339,7 @@ module.exports = {
 
   }
 }
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
