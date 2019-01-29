@@ -123,3 +123,9 @@ footer {
 .edit {
   font-size: 1em;
 }
+
+/* Google Map styles */
+#map {
+	height: 400px;
+	width: 100%;
+}
