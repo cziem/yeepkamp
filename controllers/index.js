@@ -1,9 +1,19 @@
 const passport = require('passport')
 const localStrategy = require('passport-local')
+const NodeGeocoder = require("node-geocoder");
 
 const Campgrounds = require('../models/campground')
 const Comment = require('../models/comment')
 const User = require('../models/user')
+
+const options = {
+  provider: "google",
+  httpAdapter: "https",
+  apiKey: process.env.API_KEY,
+  formatter: null
+};
+
+const geocoder = NodeGeocoder(options);
 
 passport.use(new localStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
@@ -38,22 +48,44 @@ module.exports = {
       username: req.user.username
     }
 
-    const campground = new Campgrounds({
-      name,
-      price,
-      image,
-      desc,
-      author
-    })
+    // Geocoder
+    geocoder.geocode(req.body.location)
+      .then(data => {
 
-    campground.save()
-      .then(() => {
-        req.flash('success', `Created ${campground.name} successfully`)
-        res.redirect('/campgrounds')
+        if (!data.length) {
+          req.flash('error', "Invalid Address")
+          return res.redirect('back')
+        }
+
+        const lat = data[0].latitude
+        const lng = data[0].longitude
+        const location = data[0].formattedAddress
+
+        const campground = new Campgrounds({
+          name,
+          price,
+          image,
+          desc,
+          author,
+          location,
+          lat,
+          lng
+        })
+
+        campground.save()
+          .then(() => {
+            req.flash('success', `Created ${campground.name} successfully`)
+            res.redirect(`/campgrounds/${campground._id}`)
+          })
+          .catch(err => {
+            req.flash('error', 'Bad Request! Could not create campground')
+            res.redirect('/campgrounds')
+          })
       })
-      .catch(err => {
-        req.flash('error', 'Bad Request! Could not create campground')
-        res.redirect('/campgrounds')
+      .catch((err) => {
+        console.log(err)
+        req.flash('error', "Bad Address provided")
+        res.redirect('back')
       })
   },
 
@@ -87,15 +119,35 @@ module.exports = {
   // Handle Edit campground request
   updateCampground: (req, res) => {
      const campId = req.params.id 
-     const updateInfo = req.body.campground
+     let updateInfo = req.body.campground
 
-     Campgrounds.findByIdAndUpdate(campId, updateInfo)
-      .then(campground => {
-        req.flash('success', `Updated ${campground.name} successfully`)
-        res.redirect(`/campgrounds/${campground._id}`)
+    // Geocoder
+    geocoder.geocode(updateInfo.location)
+      .then(data => {
+
+        if (!data.length) {
+          req.flash('error', "Invalid Address")
+          return res.redirect('back')
+        }
+
+        const lat = data[0].latitude
+        const lng = data[0].longitude
+        const location = data[0].formattedAddress
+
+        updateInfo.lat = lat
+        updateInfo.lng = lng
+        updateInfo.location = location
+
+        Campgrounds.findByIdAndUpdate(campId, updateInfo)
+          .then(campground => {
+            req.flash('success', `Updated ${campground.name} successfully`)
+            res.redirect(`/campgrounds/${campground._id}`)
+          })
       })
-      .catch(() => {
-        res.render('edit')
+      .catch((err) => {
+        console.log(err)
+        req.flash('error', "Bad Address provided")
+        res.redirect('back')
       })
   },
 
