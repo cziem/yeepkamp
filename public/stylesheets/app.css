@@ -133,3 +133,9 @@ footer {
 .card.mb-4 {
   min-width: 14rem;
 }
+
+.search {
+  margin: 0 auto;
+  width: 60%;
+  display: flex;
+}
