@@ -129,3 +129,7 @@ footer {
 	height: 400px;
 	width: 100%;
 }
+
+.card.mb-4 {
+  min-width: 14rem;
+}
