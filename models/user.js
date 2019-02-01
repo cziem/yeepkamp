@@ -14,10 +14,12 @@ const user = new Schema({
   avatar: String,
   firstName: String,
   lastName: String,
-  email: String,
+  email: { type: String, unique: true, required: true },
   website: String,
   socials: [social],
-  status: String
+  status: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 })
 
 user.plugin(passportLocalMongoose)
