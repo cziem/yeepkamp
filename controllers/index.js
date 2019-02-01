@@ -116,31 +116,39 @@ module.exports = {
         const lng = data[0].longitude
         const location = data[0].formattedAddress
 
-        cloudinary.v2.uploader.upload(req.file.path)
+        cloudinary.v2.uploader
+          .upload(req.file.path, { moderation: "webpurify" })
           .then(result => {
             req.body.campground.image = result.secure_url;
             req.body.campground.imageId = result.public_id;
-            req.body.campground.author = author
-            req.body.campground.location = location
-            req.body.campground.lat = lat
-            req.body.campground.lng = lng
+            req.body.campground.author = author;
+            req.body.campground.location = location;
+            req.body.campground.lat = lat;
+            req.body.campground.lng = lng;
 
-            const campground = new Campgrounds(req.body.campground)
-    
-            campground.save()
+            const campground = new Campgrounds(req.body.campground);
+
+            campground
+              .save()
               .then(() => {
-                req.flash('success', `Created ${campground.name} successfully`)
-                res.redirect(`/campgrounds/${campground._id}`)
+                req.flash(
+                  "success",
+                  `Created ${campground.name} successfully`
+                );
+                res.redirect(`/campgrounds/${campground._id}`);
               })
               .catch(err => {
-                req.flash('error', 'Bad Request! Could not create campground')
-                res.redirect('/campgrounds')
-              })
+                req.flash(
+                  "error",
+                  "Bad Request! Could not create campground"
+                );
+                res.redirect("/campgrounds");
+              });
           })
           .catch(err => {
-            req.flash('error', 'Could not upload image...')
-            res.redirect('/campgrounds')
-          })
+            req.flash("error", "Could not upload image...");
+            res.redirect("/campgrounds");
+          });
       })
       .catch((err) => {
         req.flash('error', "Bad Location Address provided")
@@ -205,7 +213,10 @@ module.exports = {
            if (req.file) {
              try {
                await cloudinary.v2.uploader.destroy(campground.imageId);
-               let result = await cloudinary.v2.uploader.upload(req.file.path);
+               let result = await cloudinary.v2.uploader.upload(
+                 req.file.path,
+                 { moderation: "webpurify" }
+               );
                campground.imageId = result.public_id;
                campground.image = result.secure_url;
                console.log('from try: ' + campground)
