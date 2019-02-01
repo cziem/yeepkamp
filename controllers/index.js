@@ -238,7 +238,8 @@ module.exports = {
     const id = req.params.id
 
     Campgrounds.findById(id)
-      .then((campground) => {
+      .then( async (campground) => {
+        await cloudinary.v2.uploader.destroy(campground.imageId);
         campground.remove()
         req.flash('success', `Removed campground successfully`)
         res.redirect('/campgrounds')
