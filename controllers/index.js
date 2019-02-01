@@ -1,11 +1,11 @@
+require('../config/config')
 const passport = require('passport')
 const localStrategy = require('passport-local')
 const NodeGeocoder = require("node-geocoder");
+// const multer = require("multer");
+const cloudinary = require("cloudinary");
 
-const Campgrounds = require('../models/campground')
-const Comment = require('../models/comment')
-const User = require('../models/user')
-
+// Option Configs
 const options = {
   provider: "google",
   httpAdapter: "https",
@@ -15,10 +15,46 @@ const options = {
 
 const geocoder = NodeGeocoder(options);
 
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: "techam",
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+// const storage = multer.diskStorage({
+//   filename: function(req, file, callback) {
+//     callback(null, Date.now() + file.originalname);
+//   }
+// });
+
+// const imageFilter = function(req, file, cb) {
+//   // accept image files only
+//   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+//     return cb(new Error("Only image files are allowed!"), false);
+//   }
+//   cb(null, true);
+// };
+
+// const upload = multer({ storage: storage, fileFilter: imageFilter });
+
+// // Configure Cloudinary
+// cloudinary.config({
+//   cloud_name: "techam",
+//   api_key: process.env.CLOUDINARY_API_KEY,
+//   api_secret: process.env.CLOUDINARY_API_SECRET
+// });
+
+// Require Models
+const Campgrounds = require('../models/campground')
+const Comment = require('../models/comment')
+const User = require('../models/user')
+
 passport.use(new localStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+// Export the Route handling Logics
 module.exports = {
   home: (req, res) => {
     res.render('landing')
@@ -58,17 +94,19 @@ module.exports = {
 
   // Add a new campground
   addCampground: (req, res) => {
-    const { name, image, desc, price } = req.body
+    // const { name, image, desc, price } = req.body
 
     const author = {
       id: req.user._id,
       username: req.user.username
     }
 
-    // Geocoder
-    geocoder.geocode(req.body.location)
-      .then(data => {
+    const userLocation = req.body.campground.location
 
+    // Geocoder
+    geocoder.geocode(userLocation)
+      .then(data => {
+        
         if (!data.length) {
           req.flash('error', "Invalid Address")
           return res.redirect('back')
@@ -78,30 +116,33 @@ module.exports = {
         const lng = data[0].longitude
         const location = data[0].formattedAddress
 
-        const campground = new Campgrounds({
-          name,
-          price,
-          image,
-          desc,
-          author,
-          location,
-          lat,
-          lng
-        })
+        cloudinary.uploader.upload(req.file.path)
+          .then(result => {
+            req.body.campground.image = result.secure_url;
+            req.body.campground.author = author
+            req.body.campground.location = location
+            req.body.campground.lat = lat
+            req.body.campground.lng = lng
 
-        campground.save()
-          .then(() => {
-            req.flash('success', `Created ${campground.name} successfully`)
-            res.redirect(`/campgrounds/${campground._id}`)
+            const campground = new Campgrounds(req.body.campground)
+    
+            campground.save()
+              .then(() => {
+                req.flash('success', `Created ${campground.name} successfully`)
+                res.redirect(`/campgrounds/${campground._id}`)
+              })
+              .catch(err => {
+                req.flash('error', 'Bad Request! Could not create campground')
+                res.redirect('/campgrounds')
+              })
           })
           .catch(err => {
-            req.flash('error', 'Bad Request! Could not create campground')
+            req.flash('error', 'Could not upload image...')
             res.redirect('/campgrounds')
           })
       })
       .catch((err) => {
-        console.log(err)
-        req.flash('error', "Bad Address provided")
+        req.flash('error', "Bad Location Address provided")
         res.redirect('back')
       })
   },

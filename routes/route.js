@@ -1,5 +1,23 @@
+require("../config/config");
 const express = require('express')
+const multer = require("multer");
 const router = express.Router()
+
+const storage = multer.diskStorage({
+  filename: function (req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+
+const imageFilter = function (req, file, cb) {
+  // accept image files only
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    return cb(new Error("Only image files are allowed!"), false);
+  }
+  cb(null, true);
+};
+
+const upload = multer({ storage: storage, fileFilter: imageFilter });
 
 const controller = require('../controllers/index')
 const { isLoggedIn, isOwner, isCommentOwner } = require('../middlewares/auth')
@@ -10,7 +28,7 @@ router.get('/', controller.home)
 router.get('/campgrounds', controller.getCampground)
 
 // Add new campground
-router.post('/campgrounds', isLoggedIn, controller.addCampground)
+router.post('/campgrounds', isLoggedIn, upload.single('image'), controller.addCampground)
 
 // Generate form to add new campground
 router.get('/campgrounds/new', isLoggedIn, controller.getNewCampground)
