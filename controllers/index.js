@@ -22,29 +22,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// const storage = multer.diskStorage({
-//   filename: function(req, file, callback) {
-//     callback(null, Date.now() + file.originalname);
-//   }
-// });
-
-// const imageFilter = function(req, file, cb) {
-//   // accept image files only
-//   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
-//     return cb(new Error("Only image files are allowed!"), false);
-//   }
-//   cb(null, true);
-// };
-
-// const upload = multer({ storage: storage, fileFilter: imageFilter });
-
-// // Configure Cloudinary
-// cloudinary.config({
-//   cloud_name: "techam",
-//   api_key: process.env.CLOUDINARY_API_KEY,
-//   api_secret: process.env.CLOUDINARY_API_SECRET
-// });
-
 // Require Models
 const Campgrounds = require('../models/campground')
 const Comment = require('../models/comment')
@@ -89,7 +66,7 @@ module.exports = {
 
   // Add new campground form
   getNewCampground: (req, res) => {
-    res.render('addCampground')
+    res.render('campgrounds/addCampground')
   },
 
   // Add a new campground
@@ -179,7 +156,7 @@ module.exports = {
 
     Campgrounds.findById(campId)
       .then(campground => {
-        res.render('edit', { campground })
+        res.render('campgrounds/edit', { campground })
       })
   },
 
@@ -267,7 +244,7 @@ module.exports = {
     const id = req.params.id
     Campgrounds.findById(id)
       .then(campground => {
-        res.render('comments', { campground })
+        res.render('comments/comments', { campground })
       })
       .catch(err => {
         req.flash('warn', 'Please ensure you have the right access')
@@ -283,7 +260,7 @@ module.exports = {
       .then(campground => {
         Comment.findById(comment_id)
           .then(comment => {
-            res.render('editComments', { 
+            res.render('comments/editComments', { 
               campground,
               comment
              })
