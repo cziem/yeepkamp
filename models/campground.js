@@ -5,6 +5,7 @@ const Comment = require('./comment')
 const yelpKamp = new Schema({
   name: { type: String, required: true },
   image: { type: String, required: true },
+  imageId: String,
   desc: String,
   price: Number,
   location: String,

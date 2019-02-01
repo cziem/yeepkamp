@@ -28,7 +28,12 @@ router.get('/', controller.home)
 router.get('/campgrounds', controller.getCampground)
 
 // Add new campground
-router.post('/campgrounds', isLoggedIn, upload.single('image'), controller.addCampground)
+router.post(
+  '/campgrounds', 
+  isLoggedIn, 
+  upload.single('image'), 
+  controller.addCampground
+)
 
 // Generate form to add new campground
 router.get('/campgrounds/new', isLoggedIn, controller.getNewCampground)
@@ -40,25 +45,50 @@ router.get('/campgrounds/:id', controller.showCampground)
 router.get('/campgrounds/:id/edit', isOwner,  controller.editCampground)
 
 // Handle Edit campground form
-router.put('/campgrounds/:id/', isOwner,  controller.updateCampground)
+router.put(
+  "/campgrounds/:id/",
+  isOwner,
+  upload.single("image"),
+  controller.updateCampground
+);
 
 // Delete a campground
 router.delete('/campgrounds/:id', isOwner,  controller.removeCampground)
 
 // Add New Comment
-router.get('/campgrounds/:id/comments/new', isLoggedIn,  controller.addComment)
+router.get(
+  '/campgrounds/:id/comments/new',
+  isLoggedIn,
+  controller.addComment
+)
 
 // Create Comment
-router.post('/campgrounds/:id/comments', isLoggedIn,  controller.createComment)
+router.post(
+  '/campgrounds/:id/comments',
+  isLoggedIn,
+  controller.createComment
+)
 
 // Edit Comment 
-router.get('/campgrounds/:id/comments/:comment_id/edit', isCommentOwner, controller.editComment)
+router.get(
+  '/campgrounds/:id/comments/:comment_id/edit',
+  isCommentOwner,
+  controller.editComment
+)
 
 // Update Comment 
-router.put('/campgrounds/:id/comments/:comment_id', isCommentOwner, controller.updateComment)
+router.put(
+  '/campgrounds/:id/comments/:comment_id',
+  isCommentOwner,
+  controller.updateComment
+)
 
 // Delete Comment
-router.delete('/campgrounds/:id/comments/:comment_id', isCommentOwner, controller.deleteComment)
+router.delete(
+  '/campgrounds/:id/comments/:comment_id', 
+  isCommentOwner,
+  controller.deleteComment
+)
 
 // AUTH ROUTES
 // Show signup form

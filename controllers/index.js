@@ -116,9 +116,10 @@ module.exports = {
         const lng = data[0].longitude
         const location = data[0].formattedAddress
 
-        cloudinary.uploader.upload(req.file.path)
+        cloudinary.v2.uploader.upload(req.file.path)
           .then(result => {
             req.body.campground.image = result.secure_url;
+            req.body.campground.imageId = result.public_id;
             req.body.campground.author = author
             req.body.campground.location = location
             req.body.campground.lat = lat
@@ -178,29 +179,52 @@ module.exports = {
   updateCampground: (req, res) => {
      const campId = req.params.id 
      let updateInfo = req.body.campground
-
-    // Geocoder
-    geocoder.geocode(updateInfo.location)
-      .then(data => {
-
+     
+     // Geocoder
+     geocoder.geocode(updateInfo.location)
+     .then(data => {
+       
         if (!data.length) {
           req.flash('error', "Invalid Address")
           return res.redirect('back')
         }
-
+        
         const lat = data[0].latitude
         const lng = data[0].longitude
         const location = data[0].formattedAddress
-
+        
         updateInfo.lat = lat
         updateInfo.lng = lng
         updateInfo.location = location
-
-        Campgrounds.findByIdAndUpdate(campId, updateInfo)
-          .then(campground => {
-            req.flash('success', `Updated ${campground.name} successfully`)
-            res.redirect(`/campgrounds/${campground._id}`)
-          })
+       
+        Campgrounds.findById(campId, async (err, campground) => {
+         if (err) {
+           req.flash("error", err.message);
+           res.redirect("back");
+         } else {
+           if (req.file) {
+             try {
+               await cloudinary.v2.uploader.destroy(campground.imageId);
+               let result = await cloudinary.v2.uploader.upload(req.file.path);
+               campground.imageId = result.public_id;
+               campground.image = result.secure_url;
+               console.log('from try: ' + campground)
+             } catch (err) {
+               req.flash("error", err.message);
+               return res.redirect("back");
+             }
+           }
+           
+           campground.name = updateInfo.name
+           campground.price = updateInfo.price
+           campground.desc = updateInfo.desc
+           campground.location = updateInfo.location
+           campground.save();
+           
+           req.flash("success", "Successfully Updated!");
+           res.redirect("/campgrounds/" + campground._id);
+         }
+       })
       })
       .catch((err) => {
         console.log(err)
