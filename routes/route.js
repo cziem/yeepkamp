@@ -109,4 +109,16 @@ router.get('/logout', controller.logout)
 // USER PROFILE
 router.get('/users/:username', controller.showPublicProfile)
 
+// Forgot Password
+router.get('/forgot-password', controller.forgotPassword)
+
+// Handle Forgot Password Request
+router.post('/forgot-password', controller.recoverPassword)
+
+// Reset Password
+router.get('/reset/:token', controller.resetPasswordForm)
+
+// Reset Password
+router.post('/reset/:token', controller.resetPassword)
+
 module.exports = router

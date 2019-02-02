@@ -139,3 +139,10 @@ footer {
   width: 60%;
   display: flex;
 }
+
+.forgot-pw {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
