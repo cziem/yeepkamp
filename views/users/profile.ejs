@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-9 pl-5 cta-foot">
       <h2>Profile Page</h2>
-      <% if (currentUser && campgrounds[0].author.id.equals(currentUser._id)) { %>
+      <% if (currentUser && currentUser._id.equals(user._id)) { %>
         <a href="" class="btn btn-sm btn-info">Edit</a>
       <% } %>
     </div>
@@ -59,6 +59,11 @@
       <h3 class="text-info">All Campgrounds by <%= user.username %></h3>
       <hr />
       <div class="row">
+        <% if (currentUser && currentUser._id === user._id && campgrounds.length < 1) { %>
+           <p class="pl-4 text-muted"><%= user.username %>, you have no campgrounds yet...</p>
+        <% } else if (campgrounds.length < 1) { %>
+            <p class="pl-4 text-muted">There are no campgrounds by <%= user.username %> yet...</p>
+        <% } %>
         <% campgrounds.forEach(campground => { %>
           <div class="col-lg-4 col-md-6 col-sm-6 pr-3">
             <div class="card mb-4 shadow-sm">
