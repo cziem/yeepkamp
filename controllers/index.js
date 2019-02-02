@@ -398,6 +398,15 @@ module.exports = {
 
   },
 
+  // Edit Users Profile Form
+  editProfile: (req, res) => {
+    res.render('users/edit')
+  },
+
+  updateProfile: (req, res) => {
+    res.send('hi, you wanna make some changes???')
+  },
+
   // Forgot Password
   forgotPassword: (req, res) => {
     res.render('users/forgot')
