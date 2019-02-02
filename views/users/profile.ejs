@@ -11,7 +11,7 @@
     <div class="col-md-9 pl-5 cta-foot">
       <h2>Profile Page</h2>
       <% if (currentUser && currentUser._id.equals(user._id)) { %>
-        <a href="" class="btn btn-sm btn-info">Edit</a>
+        <a href="/users/<%= currentUser._id %>/edit" class="btn btn-sm btn-info">Edit</a>
       <% } %>
     </div>
   </div>
