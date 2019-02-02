@@ -109,6 +109,12 @@ router.get('/logout', controller.logout)
 // USER PROFILE
 router.get('/users/:username', controller.showPublicProfile)
 
+// Edit user profile data Form
+router.get('/users/:id/edit', controller.editProfile)
+
+// Handle profile edit request
+router.post('/users/:id', controller.updateProfile)
+
 // Forgot Password
 router.get('/forgot-password', controller.forgotPassword)
 
