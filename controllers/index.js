@@ -401,7 +401,7 @@ module.exports = {
   // Edit Users Profile Form
   editProfile: async (req, res) => {
     try {
-      user = await User.findById(req.params.id)
+      let user = await User.findById(req.params.id)
       res.render('users/edit', { user })
     } catch (error) {
       req.flash('error', 'BAD REQUEST: No user with such credentials')   
@@ -409,8 +409,16 @@ module.exports = {
     }
   },
 
-  updateProfile: (req, res) => {
-    res.send('hi, you wanna make some changes???')
+  updateProfile: async (req, res) => {
+    const profileData = req.body.user 
+    try {
+      let user = await User.findOneAndUpdate(req.params.id, profileData, { new: true })
+      req.flash('success', 'Updated data successfully...')
+      res.redirect(`/users/${user.username}`)
+    } catch (error) {
+      req.flash('error', 'Could not update information...')
+      res.redirect('/campgrounds')
+    }
   },
 
   // Forgot Password
