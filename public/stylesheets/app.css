@@ -146,3 +146,9 @@ footer {
   justify-content: space-between;
   align-items: center;
 }
+
+.foot {
+  width: 40%;
+  margin: .5em auto;
+  text-align: center;
+}
