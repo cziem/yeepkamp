@@ -14,11 +14,13 @@
     <div class="row py-2">
       <div class="col-md-3 col-lg-3">
         <div class="card shadow-sm">
-          <% if (user.avatar) { %>
-            <img src="<%= user.avatar %>" class="card-img-top" alt="<%= user.username %>'s picture">
-          <% } else { %>
-            <img src="/images/userProfile.png" class="card-img-top" alt="avatar picture for <%= user.username %>"> 
-          <% } %>
+          <div class="img-overlay">
+            <% if (user.avatar) { %>
+              <img src="<%= user.avatar %>" class="card-img-top" alt="<%= user.username %>'s picture">
+            <% } else { %>
+              <img src="/images/userProfile.png" class="card-img-top" alt="avatar picture for <%= user.username %>"> 
+            <% } %>
+          </div>
           <div class="card-body">
             <h5 class="card-title text-center">
               <%= user.username %>
@@ -40,13 +42,13 @@
             <hr />
             <div class="row">
               <div class="container px-3 cta-foot">
-                <a href="facebook.com/<%= user.facebook %>">
+                <a href="<%= user.facebook %>">
                   <i class="fab fa-facebook-square"></i>
                 </a>
-                <a href="instagram.com/<%= user.instagram %>">
+                <a href="<%= user.instagram %>">
                   <i class="fab fa-instagram"></i>
                 </a>
-                <a href="twitter.com/<%= user.twitter %>">
+                <a href="<%= user.twitter %>">
                   <i class="fab fa-twitter "></i>
                 </a>
               </div>
@@ -58,7 +60,7 @@
       <div class="col-md-9 col-lg-9 pl-5">
         <h5 class="text-muted mb-3">Personal Details</h5>
         <div class="form-label-group">
-          <input class="form-control" type="text" name="user[username]" value="<%= user.username %>">
+          <input class="form-control" type="text" name="user[username]" value="<%= user.username %>" disabled>
           <label for="username">username</label>
         </div> 
 
@@ -79,7 +81,7 @@
 
         <h5 class="text-muted mt-4 mb-3">Network</h5>
         <div class="form-label-group">
-          <input class="form-control" type="email" name="user[website]" value="<%= user.website %>">
+          <input class="form-control" type="text" name="user[website]" value="<%= user.website %>">
           <label for="website">Website</label>
         </div> 
 
