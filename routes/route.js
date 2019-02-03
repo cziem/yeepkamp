@@ -110,10 +110,18 @@ router.get('/logout', controller.logout)
 router.get('/users/:username', controller.showPublicProfile)
 
 // Edit user profile data Form
-router.get('/users/:id/edit', controller.editProfile)
+router.get(
+  '/users/:id/edit', 
+  isLoggedIn,
+  controller.editProfile
+)
 
 // Handle profile edit request
-router.post('/users/:id', controller.updateProfile)
+router.put(
+  '/users/:id', 
+  isLoggedIn,
+  controller.updateProfile
+)
 
 // Forgot Password
 router.get('/forgot-password', controller.forgotPassword)
