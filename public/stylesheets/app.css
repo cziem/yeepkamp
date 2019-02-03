@@ -152,3 +152,9 @@ footer {
   margin: .5em auto;
   text-align: center;
 }
+
+.img-overlay:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.438);
+  transition: all .5s ease-in-out;
+}
