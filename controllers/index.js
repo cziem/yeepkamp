@@ -399,8 +399,14 @@ module.exports = {
   },
 
   // Edit Users Profile Form
-  editProfile: (req, res) => {
-    res.render('users/edit')
+  editProfile: async (req, res) => {
+    try {
+      user = await User.findById(req.params.id)
+      res.render('users/edit', { user })
+    } catch (error) {
+      req.flash('error', 'BAD REQUEST: No user with such credentials')   
+      res.redirect('back')
+    }
   },
 
   updateProfile: (req, res) => {
