@@ -198,7 +198,6 @@ module.exports = {
                );
                campground.imageId = result.public_id;
                campground.image = result.secure_url;
-               console.log('from try: ' + campground)
              } catch (err) {
                req.flash("error", err.message);
                return res.redirect("back");
@@ -410,11 +409,27 @@ module.exports = {
   },
 
   updateProfile: async (req, res) => {
-    const profileData = req.body.user 
+    const profileData = req.body.user
+    const profilePic = req.file.path
+
     try {
-      let user = await User.findOneAndUpdate(req.params.id, profileData, { new: true })
-      req.flash('success', 'Updated data successfully...')
-      res.redirect(`/users/${user.username}`)
+      let proUser = await User.findById(req.params.id)
+      
+      if (proUser) {
+        if (proUser.avatar) {
+          await cloudinary.v2.uploader.destroy(proUser.avatarId);
+        }
+        let result = await cloudinary.v2.uploader.upload(profilePic, {
+          moderation: "webpurify"
+        });
+        profileData.avatarId = result.public_id;
+        profileData.avatar = result.secure_url;
+
+        // Update user's records
+        let user = await User.findOneAndUpdate(req.params.id, profileData, { new: true })
+        req.flash('success', 'Updated data successfully...')
+        res.redirect(`/users/${user.username}`)
+      }
     } catch (error) {
       req.flash('error', 'Could not update information...')
       res.redirect('/campgrounds')
