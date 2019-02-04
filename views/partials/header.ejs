@@ -43,12 +43,16 @@
             <% if (currentUser && currentUser.isAdmin) { %>
               <a class="nav-link" href="/users/<%= currentUser.username %>" class="isAdmin">
                 welcome Admin <strong><%= currentUser.username %></strong>
-                <img src="<%= currentUser.avatar %>" class="img-responsive">
+                <% if (currentUser.avatar) { %>
+                  <img src="<%= currentUser.avatar %>" class="img-responsive">
+                <% } %>
               </a>
             <% } else { %>
               <a class="nav-link" href="/users/<%= currentUser.username %>">
                 welcome <strong><%= currentUser.username %></strong>
-                <img src="<%= currentUser.avatar %>" class="img-fluid rounded">
+                <% if (currentUser.avatar) { %>
+                  <img src="<%= currentUser.avatar %>" class="img-fluid rounded">
+                <% } %>
               </a>
             <% } %>
           </li>
