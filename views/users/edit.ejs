@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 
 <div class="container py-5">
-  <form action="/users/<%= user._id %>?_method=PUT" class="form-signin-profile" method="POST">
+  <form action="/users/<%= user._id %>?_method=PUT" class="form-signin-profile" method="POST" enctype="multipart/form-data">
     <div class="row pb-4">
       <div class="col-md-3 text-center">
         <a href="/users/<%= user.username %>" class="btn btn-sm bg-secondary">
@@ -17,7 +17,7 @@
           <div class="img-overlay">
             <label>
               <i class="fas fa-edit float-right">
-                <input type="file">
+                <input type="file" name="image">
               </i>
             </label>
             <% if (user.avatar) { %>
