@@ -20,6 +20,11 @@ body {
   margin: auto;
 }
 
+/* Profile Page Edit styles */
+.form-signin-profile {
+  max-width: 100%;
+}
+
 .form-label-group {
   position: relative;
   margin-bottom: 1rem;

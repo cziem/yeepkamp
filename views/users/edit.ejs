@@ -1,0 +1,120 @@
+<% include ../partials/header %>
+
+<div class="container py-5">
+  <form action="/users/<%= user._id %>?_method=PUT" class="form-signin-profile" method="POST">
+    <div class="row pb-4">
+      <div class="col-md-3 text-center">
+        <a href="/users/<%= user.username %>" class="btn btn-sm bg-secondary">
+          <i class="fas fa-arrow-circle-left"></i>
+          Go Back
+        </a>
+      </div>
+    </div>
+  
+    <div class="row py-2">
+      <div class="col-md-3 col-lg-3">
+        <div class="card shadow-sm">
+          <div class="img-overlay">
+            <% if (user.avatar) { %>
+              <img src="<%= user.avatar %>" class="card-img-top" alt="<%= user.username %>'s picture">
+            <% } else { %>
+              <img src="/images/userProfile.png" class="card-img-top" alt="avatar picture for <%= user.username %>"> 
+            <% } %>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center">
+              <%= user.username %>
+            </h5>
+            <% if (user.status) { %>
+              <div class="form-label-group">
+                <input class="form-control" type="text" name="user[status]"
+                value="<%= user.status %>" />
+                <label for="status">status</label>
+              </div>
+            <% } else { %>
+              <div class="form-label-group">
+                <input class="form-control" type="text" name="user[status]"
+                placeholder="Feeling good..." />
+                <label for="status">status</label>
+              </div>
+            <% } %>
+      
+            <hr />
+            <div class="row">
+              <div class="container px-3 cta-foot--profile">
+                <% if (user.facebook) { %>
+                  <a href="<%= user.facebook %>" target="_blank">
+                    <i class="fab fa-facebook-square"></i>
+                  </a>
+                <% } %>
+                <% if (user.instagram) { %>
+                  <a href="<%= user.instagram %>" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                <% } %>
+                <% if (user.twitter) { %>
+                  <a href="<%= user.twitter %>" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-9 col-lg-9 pl-5">
+        <h5 class="text-muted mb-3">Personal Details</h5>
+        <div class="form-label-group">
+          <input class="form-control" type="text" name="user[username]" value="<%= user.username %>" disabled>
+          <label for="username">username</label>
+        </div> 
+
+        <div class="form-label-group">
+          <input class="form-control" type="text" name="user[firstName]" value="<%= user.firstName %>">
+          <label for="firstName">First Name</label>
+        </div> 
+        
+        <div class="form-label-group">
+          <input class="form-control" type="text" name="user[lastName]" value="<%= user.lastName %>">
+          <label for="lastName">Last Name</label>
+        </div> 
+        
+        <div class="form-label-group">
+          <input class="form-control" type="email" name="user[email]" value="<%= user.email %>">
+          <label for="email">Email</label>
+        </div> 
+
+        <h5 class="text-muted mt-4 mb-3">Network</h5>
+        <div class="form-label-group">
+          <input class="form-control" type="text" name="user[website]" value="<%= user.website %>">
+          <label for="website">Website</label>
+        </div> 
+
+        <div class="form-label-group">
+          <i class="fab fa-facebook-square"></i>
+          <input class="form-control" type="text" name="user[facebook]" value="<%= user.facebook %>">
+          <label for="facebook">facebook</label>
+        </div> 
+
+        <div class="form-label-group">
+          <i class="fab fa-instagram"></i>
+          <input class="form-control" type="text" name="user[instagram]" value="<%= user.instagram %>">
+          <label for="instagram">instagram</label>
+        </div> 
+
+        <div class="form-label-group">
+          <i class="fab fa-twitter"></i>
+          <input class="form-control" type="text" name="user[twitter]" value="<%= user.twitter %>">
+          <label for="twitter">twitter</label>
+        </div> 
+
+        <div class="foot pt-4">
+          <button class="btn btn-success btn-block btn-lg text-center">Save</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<% include ../partials/footer %>

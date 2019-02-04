@@ -15,7 +15,8 @@ const secret = process.env.APP_SECRET
 mongoose.connect(uri, {
   useCreateIndex: true,
   useNewUrlParser: true,
-  useFindAndModify: true
+  useFindAndModify: true,
+  useFindAndModify: false
 })
   .then(() => console.log(`connected to the database... @ ${uri}`))
   .catch(err => console.log(`an error occurred: ${err}`))

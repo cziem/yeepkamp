@@ -16,7 +16,9 @@ const user = new Schema({
   lastName: String,
   email: { type: String, unique: true, required: true },
   website: String,
-  socials: [social],
+  facebook: String,
+  twitter: String,
+  instagram: String,
   status: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date

@@ -10,8 +10,8 @@
     </div>
     <div class="col-md-9 pl-5 cta-foot">
       <h2>Profile Page</h2>
-      <% if (currentUser && campgrounds[0].author.id.equals(currentUser._id)) { %>
-        <a href="" class="btn btn-sm btn-info">Edit</a>
+      <% if (currentUser && currentUser._id.equals(user._id)) { %>
+        <a href="/users/<%= currentUser._id %>/edit" class="btn btn-sm btn-info">Edit</a>
       <% } %>
     </div>
   </div>
@@ -36,19 +36,22 @@
     
           <hr />
           <div class="row">
-            <div class="container px-3 cta-foot">
-              <a href="#">
-                <i class="fab fa-github"></i>
-              </a>
-              <a href="#">
-                <i class="fab fa-facebook-square"></i>
-              </a>
-              <a href="#">
-                <i class="fab fa-instagram"></i>
-              </a>
-              <a href="#">
-                <i class="fab fa-twitter "></i>
-              </a>
+            <div class="container px-3 cta-foot--profile">
+              <% if (user.facebook) { %>
+                <a href="<%= user.facebook %>" target="_blank">
+                  <i class="fab fa-facebook-square"></i>
+                </a>
+              <% } %>
+              <% if (user.instagram) { %>
+                <a href="<%= user.instagram %>" target="_blank">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              <% } %>
+              <% if (user.twitter) { %>
+                <a href="<%= user.twitter %>" target="_blank">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              <% } %>
             </div>
           </div>
         </div>
@@ -59,6 +62,11 @@
       <h3 class="text-info">All Campgrounds by <%= user.username %></h3>
       <hr />
       <div class="row">
+        <% if (currentUser && currentUser._id === user._id && campgrounds.length < 1) { %>
+           <p class="pl-4 text-muted"><%= user.username %>, you have no campgrounds yet...</p>
+        <% } else if (campgrounds.length < 1) { %>
+            <p class="pl-4 text-muted">There are no campgrounds by <%= user.username %> yet...</p>
+        <% } %>
         <% campgrounds.forEach(campground => { %>
           <div class="col-lg-4 col-md-6 col-sm-6 pr-3">
             <div class="card mb-4 shadow-sm">
