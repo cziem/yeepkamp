@@ -12,6 +12,7 @@ const user = new Schema({
   password: { type: String },
   isAdmin: { type: Boolean, default: false },
   avatar: String,
+  avatarId: String,
   firstName: String,
   lastName: String,
   email: { type: String, unique: true, required: true },
