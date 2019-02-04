@@ -162,8 +162,25 @@ footer {
   text-align: center;
 }
 
-.img-overlay:hover {
+.img-overlay {
   cursor: pointer;
-  background: rgba(0, 0, 0, 0.438);
-  transition: all .5s ease-in-out;
+  overflow: hidden;
+  position: relative;
+}
+
+.img-overlay:hover {
+  background: rgba(19, 163, 189, 0.137);
+}
+
+.img-overlay i.fa-edit {
+  color: #14a4bc;
+  position: absolute;
+  top: -1.5em;
+  right: 0.6em;
+  transition: all .3s;
+  transform: translateY(100%) translateY(-1.5em);
+}
+
+.img-overlay:hover i.fa-edit {
+  transform: translateY(2em)
 }
