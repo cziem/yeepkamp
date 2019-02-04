@@ -41,16 +41,22 @@
       
             <hr />
             <div class="row">
-              <div class="container px-3 cta-foot">
-                <a href="<%= user.facebook %>">
-                  <i class="fab fa-facebook-square"></i>
-                </a>
-                <a href="<%= user.instagram %>">
-                  <i class="fab fa-instagram"></i>
-                </a>
-                <a href="<%= user.twitter %>">
-                  <i class="fab fa-twitter "></i>
-                </a>
+              <div class="container px-3 cta-foot--profile">
+                <% if (user.facebook) { %>
+                  <a href="<%= user.facebook %>" target="_blank">
+                    <i class="fab fa-facebook-square"></i>
+                  </a>
+                <% } %>
+                <% if (user.instagram) { %>
+                  <a href="<%= user.instagram %>" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                <% } %>
+                <% if (user.twitter) { %>
+                  <a href="<%= user.twitter %>" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                <% } %>
               </div>
             </div>
           </div>

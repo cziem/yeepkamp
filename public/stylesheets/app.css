@@ -110,13 +110,22 @@ footer {
   justify-content: space-between;
 }
 
+.cta-foot--profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .px-3.cta-foot a, 
-.px-3.cta-foot a:visited {
+.px-3.cta-foot a:visited,
+.px-3.cta-foot--profile a, 
+.px-3.cta-foot--profile a:visited {
   color: #333;
   font-size: 1.65em;
 }
 
-.px-3.cta-foot a:hover {
+.px-3.cta-foot a:hover,
+.px-3.cta-foot--profile a:hover {
   color: #17a2b8;
 }
 
