@@ -193,3 +193,8 @@ footer {
 .img-overlay input[type='file'] {
   display: none;
 }
+
+img.img-fluid.rounded {
+  width: 1.5rem;
+  height: 1.5rem;
+}
