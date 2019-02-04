@@ -174,13 +174,22 @@ footer {
 
 .img-overlay i.fa-edit {
   color: #14a4bc;
+  font-size: 1.32em;
+}
+
+.img-overlay label {
+  cursor: pointer;
   position: absolute;
   top: -1.5em;
   right: 0.6em;
   transition: all .3s;
-  transform: translateY(100%) translateY(-1.5em);
+  transform: translateY(100%) translateY(-1.7em);
 }
 
-.img-overlay:hover i.fa-edit {
+.img-overlay:hover label {
   transform: translateY(2em)
+}
+
+.img-overlay input[type='file'] {
+  display: none;
 }
