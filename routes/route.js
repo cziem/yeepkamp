@@ -36,13 +36,21 @@ router.post(
 )
 
 // Generate form to add new campground
-router.get('/campgrounds/new', isLoggedIn, controller.getNewCampground)
+router.get(
+  '/campgrounds/new', 
+  isLoggedIn, 
+  controller.getNewCampground
+)
 
 // Show a single campground
 router.get('/campgrounds/:id', controller.showCampground)
 
 // Edit a campground form
-router.get('/campgrounds/:id/edit', isOwner,  controller.editCampground)
+router.get(
+  '/campgrounds/:id/edit', 
+  isOwner,  
+  controller.editCampground
+)
 
 // Handle Edit campground form
 router.put(
@@ -53,7 +61,11 @@ router.put(
 );
 
 // Delete a campground
-router.delete('/campgrounds/:id', isOwner,  controller.removeCampground)
+router.delete(
+  '/campgrounds/:id', 
+  isOwner,  
+  controller.removeCampground
+)
 
 // Add New Comment
 router.get(
@@ -120,6 +132,7 @@ router.get(
 router.put(
   '/users/:id', 
   isLoggedIn,
+  upload.single('image'),
   controller.updateProfile
 )
 
