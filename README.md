@@ -2,7 +2,7 @@
 
 Building a yelp camp application with `NodeJs`
 
-visit us at [yeepkamp](https://yeepkamp.herokuapp.com)
+visit us at [yeepkamp](https://yeepkamp.techam.org)
 
 ## Tracking & Bug Reporting
 
